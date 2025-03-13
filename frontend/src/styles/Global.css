@@ -1,0 +1,162 @@
+/* floating animation */
+/* Define the floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(-10px);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+}
+
+/* Apply the animation */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+/* Add a bottom-only shiny shadow effect */
+.shiny-bottom-only {
+  box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+}
+
+/* global.css */
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+.slide-in {
+  animation: slideIn 1s ease-in-out;
+}
+
+.image-hover {
+  transition: transform 0.3s ease-in-out;
+}
+
+.image-hover:hover {
+  transform: scale(1.05);
+}
+
+/* animated card - pricing page */
+@keyframes border-glow {
+  0% {
+    box-shadow: 0 0 5px #a5f3fc, 0 0 20px #06b6d4;
+  }
+  50% {
+    box-shadow: 0 0 8px #ecfeff, 0 0 40px #0e7490;
+  }
+  100% {
+    box-shadow: 0 0 12px #a5f3fc, 0 0 20px #06b6d4;
+  }
+}
+
+.border-gradient {
+  background: linear-gradient(45deg, #ecfeff, #a5f3fc, #06b6d4, #0e7490);
+  background-size: 300% 300%;
+  animation: border-glow 6s ease-in-out infinite, border-gradient-animation 5s linear infinite;
+  padding: 2px;
+  border-radius: 0.5rem;
+}
+/* Best gym */
+.parent {
+  width: 250px; /* Adjust card width */
+  padding: 20px;
+  perspective: 1000px;
+}
+
+.card {
+  padding-top: 30px;
+  border: 3px solid #fff;
+  transform-style: preserve-3d;
+  background:
+    repeating-linear-gradient(45deg, #083344 -6.25% 6.25%, #083344 0 18.75%);
+  background-size: 60px 60px;
+  background-position: 0 0, 0 0;
+  background-color: #f0f0f0;
+  width: 100%;
+  box-shadow: #083344 0px 30px 30px -10px;
+  transition: all 0.5s ease-in-out;
+}
+
+.card:hover {
+  background-position: -100px 100px, -100px 100px;
+  transform: rotate3d(0.5, 1, 0, 30deg);
+}
+
+.content-box {
+  background: rgba(4, 193, 250, 0.732);
+  padding: 40px 20px;
+  transform-style: preserve-3d;
+}
+
+.content-box .card-title {
+  display: inline-block;
+  color: white;
+  font-size: 20px;
+  font-weight: 900;
+  transition: all 0.5s ease-in-out;
+  transform: translate3d(0px, 0px, 50px);
+}
+
+.content-box .card-content {
+  margin-top: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #f2f2f2;
+  transition: all 0.5s ease-in-out;
+  transform: translate3d(0px, 0px, 30px);
+}
+
+.content-box .see-more {
+  margin-top: 1rem;
+  display: inline-block;
+  font-weight: 900;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: rgb(7, 185, 255);
+  background: white;
+  padding: 0.3rem 0.7rem;
+  transition: all 0.5s ease-in-out;
+  transform: translate3d(0px, 0px, 20px);
+}
+/* boder animation */
+@keyframes border-glow {
+  0% {
+    box-shadow: 0 0 5px #a5f3fc, 0 0 10px #06b6d4;
+  }
+  50% {
+    box-shadow: 0 0 15px #ecfeff, 0 0 30px #0e7490;
+  }
+  100% {
+    box-shadow: 0 0 5px #a5f3fc, 0 0 10px #06b6d4;
+  }
+}
+
+.glow-border {
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: linear-gradient(#083344, #083344) padding-box,
+    linear-gradient(45deg, #06b6d4, #0e7490, #ecfeff, #a5f3fc) border-box;
+  animation: border-glow 2s infinite ease-in-out;
+}

@@ -1,0 +1,198 @@
+import AllGym from "../assets/AllGym.js";
+import assets from "../assets/assets.js"
+const GymData = [
+  {
+    id: 1,
+    name: "Empire Fitness",
+    location: "New York",
+    description: "A bustling city known for its iconic landmarks.",
+    rating: 4.5,
+    image: AllGym.gym1,
+    owner: {
+      name: "John Smith",
+      image: assets.owner1,
+    },
+  },
+  {
+    id: 2,
+    name: "Paris Gym",
+    location: "Paris",
+    description: "The city of lights and love with rich culture.",
+    rating: 4.8,
+    image: AllGym.gym2,
+    owner: {
+      name: "Marie Dupont",
+      image: assets.owner2,
+    },
+  },
+  {
+    id: 3,
+    name: "Tokyo Fit",
+    location: "Tokyo",
+    description: "A vibrant city blending tradition and technology.",
+    rating: 4.7,
+    image: AllGym.gym3,
+    owner: {
+      name: "Hiroshi Tanaka",
+      image: assets.owner3,
+    },
+  },
+  {
+    id: 4,
+    name: "Sydney Strength",
+    location: "Sydney",
+    description: "Famous for its opera house and beautiful beaches.",
+    rating: 4.6,
+    image: AllGym.gym4,
+    owner: {
+      name: "James Wilson",
+      image: assets.owner4,
+    },
+  },
+  {
+    id: 5,
+    name: "Bollywood Gym",
+    location: "Mumbai",
+    description: "A city that never sleeps, known for Bollywood.",
+    rating: 4.4,
+    image: AllGym.gym5,
+    owner: {
+      name: "Rajesh Kumar",
+      image: assets.owner1,
+    },
+  },
+  {
+    id: 6,
+    name: "London Fitness",
+    location: "London",
+    description: "A city rich in history with modern attractions.",
+    rating: 4.9,
+    image: AllGym.gym6,
+    owner: {
+      name: "Elizabeth Brown",
+      image: assets.owner2,
+    },
+  },
+  {
+    id: 7,
+    name: "Dubai Elite Gym",
+    location: "Dubai",
+    description: "Famous for luxury shopping and ultramodern architecture.",
+    rating: 4.3,
+    image: AllGym.gym7,
+    owner: {
+      name: "Ahmed Al-Farsi",
+      image: assets.owner3,
+    },
+  },
+  {
+    id: 8,
+    name: "Singapore Gym Hub",
+    location: "Singapore",
+    description: "A global hub with diverse culture and attractions.",
+    rating: 4.7,
+    image: AllGym.gym8,
+    owner: {
+      name: "Li Wei",
+      image: assets.owner3,
+    },
+  },
+  {
+    id: 9,
+    name: "Berlin Power Gym",
+    location: "Berlin",
+    description: "A historic city with modern art and culture.",
+    rating: 4.5,
+    image: AllGym.gym9,
+    owner: {
+      name: "Hans Müller",
+      image: assets.owner4,
+    },
+  },
+  {
+    id: 10,
+    name: "Cape Town Fitness",
+    location: "Cape Town",
+    description: "Known for its harbor and natural beauty.",
+    rating: 4.7,
+    image: AllGym.gym10,
+    owner: {
+      name: "Nelson Jacobs",
+      image: assets.owner1,
+    },
+  },
+  {
+    id: 11,
+    name: "Barcelona Gym",
+    location: "Barcelona",
+    description: "Famous for its art and architecture.",
+    rating: 4.8,
+    image: AllGym.gym11,
+    owner: {
+      name: "Carlos Lopez",
+      image: assets.owner2,
+    },
+  },
+  {
+    id: 12,
+    name: "Rome Fitness Club",
+    location: "Rome",
+    description: "The eternal city with rich history and culture.",
+    rating: 4.7,
+    image: AllGym.gym12,
+    owner: {
+      name: "Marco Rossi",
+      image: assets.owner2,
+    },
+  },
+  {
+    id: 13,
+    name: "Moscow Strength",
+    location: "Moscow",
+    description: "The capital of Russia, known for its grand architecture.",
+    rating: 4.7,
+    image: AllGym.gym13,
+    owner: {
+      name: "Dmitry Petrov",
+      image: assets.owner3,
+    },
+  },
+  {
+    id: 14,
+    name: "Buenos Aires Gym",
+    location: "Buenos Aires",
+    description: "The heart of Argentina, known for its culture and tango.",
+    rating: 4.6,
+    image: AllGym.gym14,
+    owner: {
+      name: "Fernando Gomez",
+      image: assets.owner4,
+    },
+  },
+  {
+    id: 15,
+    name: "Istanbul Powerhouse",
+    location: "Istanbul",
+    description: "A city that straddles Europe and Asia, rich in history.",
+    rating: 4.7,
+    image: AllGym.gym15,
+    owner: {
+      name: "Mehmet Yilmaz",
+      image:assets.owner1,
+    },
+  },
+  {
+    id: 16,
+    name: "Athens Gym",
+    location: "Athens",
+    description: "The cradle of Western civilization with ancient landmarks.",
+    rating: 4.8,
+    image: AllGym.gym16,
+    owner: {
+      name: "Nikos Papadopoulos",
+      image: assets.owner2,
+    },
+  },
+];
+
+export default GymData;
