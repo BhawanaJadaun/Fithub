@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+:root {
+  --first:#083344;
+  --second:#155e75;
+  --third:#0e7490;
+  --fourth:#06b6d4;
+  --fifth:#22d3ee;
+  --six:#67e8f9;
+  --seven:#a5f3fc;
+  --eight:#cffafe;
+  --default:#ecfeff;
+ }
+
+*{
+  margin: 0;
+  top: 0;
+}
+/* boder animation */
+@keyframes border-glow {
+  0% {
+    box-shadow: 0 0 5px #a5f3fc, 0 0 10px #06b6d4;
+  }
+  50% {
+    box-shadow: 0 0 15px #ecfeff, 0 0 30px #0e7490;
+  }
+  100% {
+    box-shadow: 0 0 5px #a5f3fc, 0 0 10px #06b6d4;
+  }
+}
+
+.glow-border {
+  border: 2px solid transparent;
+  border-radius: 12px;
+  background: linear-gradient(#083344, #083344) padding-box,
+    linear-gradient(45deg, #06b6d4, #0e7490, #ecfeff, #a5f3fc) border-box;
+  animation: border-glow 2s infinite ease-in-out;
+}
