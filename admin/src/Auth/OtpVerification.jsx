@@ -1,11 +1,10 @@
 import React, { useState, useRef } from "react";
-import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { API_URL } from "../../server.js";
-import { setAuthUser } from "../../redux/authSlice.js"; // Use the correct action
+import { API_URL } from "../server.js";
+import { setAuthUser } from "../redux/authSlice.js"; // Use the correct action
 import { Loader } from "lucide-react";
 
 const OtpVerification = () => {
@@ -30,7 +29,11 @@ const OtpVerification = () => {
   };
 
   const handleKeyDown = (index, event) => {
-    if (event.key === "Backspace" && !otp[index] && inputRefs.current[index - 1]) {
+    if (
+      event.key === "Backspace" &&
+      !otp[index] &&
+      inputRefs.current[index - 1]
+    ) {
       inputRefs.current[index - 1]?.focus();
     }
   };
@@ -40,41 +43,42 @@ const OtpVerification = () => {
     try {
       const otpValue = otp.join("").trim();
       console.log("OTP Sent to Server:", otpValue);
-  
+
       const response = await axios.post(
-        `${API_URL}/users/verify`,
+        `${API_URL}/admin/verify`,
         { otp: otpValue },
         { withCredentials: true }
       );
-  
+
       console.log("Server Response:", response.data);
-  
+
       // ✅ Ensure correct extraction of user data
-      const verifiedUser = response.data?.data?.user;
-      console.log("Extracted User Data:", verifiedUser);
-  
+      const verifiedUser = response.data?.data?.admin; // Accessing admin data instead of user
+      console.log("Extracted Admin Data:", verifiedUser);
+
       if (verifiedUser) {
         dispatch(setAuthUser(verifiedUser));
-        console.log("Updated Redux State:", verifiedUser);
         toast.success("Verification Successful");
         navigate("/");
       } else {
-        throw new Error("User data is missing in the response");
+        throw new Error("Admin data is missing in the response");
       }
     } catch (error) {
       console.error("Error:", error);
-      const errorMessage = error?.response?.data?.message || "Verification Failed!";
+      const errorMessage =
+        error?.response?.data?.message || "Verification Failed!";
       toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
   };
-  
 
   const handleResendOtp = async () => {
     setLoading(true);
     try {
-      await axios.post(`${API_URL}/users/resend-otp`, null, { withCredentials: true });
+      await axios.post(`${API_URL}/admin/resend-otp`, null, {
+        withCredentials: true,
+      });
       toast.success("OTP Resent Successfully!");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to Resend OTP!");
@@ -82,12 +86,12 @@ const OtpVerification = () => {
       setLoading(false);
     }
   };
-  
-  
 
   return (
     <div className="h-screen flex flex-col items-center justify-center bg-first">
-      <h1 className="text-xl mb-4 font-semibold text-six">Enter Your Email Verification Code here</h1>
+      <h1 className="text-xl mb-4 font-semibold text-six">
+        Enter Your Email Verification Code here
+      </h1>
       <div className="flex space-x-4">
         {[0, 1, 2, 3].map((index) => (
           <input
@@ -105,12 +109,17 @@ const OtpVerification = () => {
       <div className="flex items-center space-x-4 mt-6">
         {!loading ? (
           <>
-            <Button onClick={handleSubmit} variant="default" disabled={loading} className="bg-gradient-to-r from-second via-six to-first rounded-md hover:opacity-90 transition text-white ">
+            <button
+              onClick={handleSubmit}
+              variant="default"
+              disabled={loading}
+              className="bg-gradient-to-r from-second via-six to-first rounded-md hover:opacity-90 transition text-white "
+            >
               Submit
-            </Button>
-            <Button onClick={handleResendOtp} className="bg-six">
+            </button>
+            <button onClick={handleResendOtp} className="bg-six">
               Resend OTP
-            </Button>
+            </button>
           </>
         ) : (
           <Loader className="animate-spin w-8 h-8 text-six" />

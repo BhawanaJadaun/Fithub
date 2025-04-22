@@ -1,6 +1,6 @@
 // src/assets.js
 
-import logo from './logo.png'; // Import the logo image
+import logo from './Fitnesslogo.png'; // Import the logo image
 import hero from './hero.webp'
 import demo_video from './gym.mp4'
 import client1 from "./client1.png"
