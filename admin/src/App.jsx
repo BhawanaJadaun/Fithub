@@ -1,10 +1,10 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Dashboard from "./Pages/Dashboard.jsx";
-import AllGym from "./Pages/Product/AddGym.jsx";
+import AllGyms from "./Pages/Product/AllGyms.jsx";
 import AddGym from "./Pages/Product/AddGym.jsx";
 import EditGym from "./Pages/Product/EditGym.jsx";
-import GymDetails from "./Pages/Product/EditGym.jsx";
+import GymDetails from "./Pages/Product/GymDetails.jsx";
 import EnquiryPage from "./Pages/EnquiryPage.jsx";
 import Analytics from "./Pages/AnalyticPage.jsx";
 import Sidebar from "./components/Sidebar.jsx";
@@ -20,10 +20,10 @@ const App = () => {
     <Router>
       <div className="flex">
         <Sidebar />
-        <main className="flex-1 p-4 lg:ml-0 mt-16 lg:mt-0">
+        <main className="flex-1 p-4 lg:ml-0 mt-16 lg:mt-0 bg-second">
           <Routes>
             <Route path="/" element={<Dashboard />} />
-            <Route path="/all-gyms" element={<AllGym />} />
+            <Route path="/all-gyms" element={<AllGyms />} />
             <Route path="/add-gym" element={<AddGym />} />
             <Route path="/edit-gym/:id" element={<EditGym />} />
             <Route path="/gym/:id" element={<GymDetails />} />

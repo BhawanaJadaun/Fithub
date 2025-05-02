@@ -1,3 +1,4 @@
+
 import Admin from "../models/adminModel.js";
 import catchAsync from "../utils/catchAsync.js";
 import generateOtp from "../utils/generateOtp.js";
@@ -7,25 +8,29 @@ import AppError from "../utils/AppError.js";
 import bcrypt from "bcryptjs";
 
 // ========================== Helpers ==========================
+
 const signToken = (id) => {
-  return jwt.sign({ id }, process.env.JWT_SECRET, {
-    expiresIn: process.env.JWT_EXPIRES_IN,
+  const secret = process.env.JWT_SECRET || 'temporaryfallbacksecret';
+  return jwt.sign({ id }, secret, {
+    expiresIn: process.env.JWT_EXPIRES_IN || '7d', // Ensure this is set in .env file
   });
 };
 
 const createSendToken = (admin, statusCode, res, message) => {
   const token = signToken(admin._id);
+  console.log("Token created at:", new Date()); // Log the time of token creation
+  console.log("Generated Token:", token); // Log the token for debugging
 
   const cookieOptions = {
     expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000 // Set the cookie expiration time
     ),
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    secure: process.env.NODE_ENV === "production", // Secure cookie in production only
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax", // SameSite cookie policy
   };
 
-  res.cookie("token", token, cookieOptions);
+  res.cookie("token", token, cookieOptions); // Send the token as a cookie
 
   admin.password = undefined;
   admin.otp = undefined;

@@ -33,7 +33,7 @@ const Sidebar = () => {
 
   const navItems = [
     { name: "Dashboard", path: "/dashboard", icon: <FiHome /> },
-    { name: "All Gym", path: "/gyms", icon: <FiUsers /> },
+    { name: "All Gym", path: "/all-gyms", icon: <FiUsers /> },
     { name: "Add Gym", path: "/add-gym", icon: <FiPlusCircle /> },
     { name: "Enquiry", path: "/enquiry-page", icon: <FiMessageSquare /> },
     { name: "Analytics", path: "/analytics", icon: <FiBarChart2 /> },

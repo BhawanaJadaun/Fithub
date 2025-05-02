@@ -106,3 +106,23 @@
     @apply bg-background text-foreground;
   }
 }
+/* gym card */
+.gym-card {
+  width: 320px;
+  height: 370px;
+  padding: 20px;
+  color: white;
+  background: linear-gradient(#083344, #083344) padding-box,
+              linear-gradient(145deg, transparent 35%, #a5f3fc,  #06b6d4) border-box;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transform-origin: right bottom;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.gym-card:hover {
+  rotate: 8deg;
+}

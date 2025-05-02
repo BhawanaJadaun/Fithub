@@ -25,10 +25,12 @@ export const addGym = async (req, res) => {
     let imageUrl = null;
 
     if (req.file) {
+      // Image upload to Cloudinary
       const uploadRes = await uploadToCloudinary(req.file.path);
       imageUrl = uploadRes.secure_url;
     }
 
+    // Create a new gym object
     const newGym = new Gym({
       gymName,
       ownerName,
@@ -41,18 +43,19 @@ export const addGym = async (req, res) => {
       openTime,
       closeTime,
       monthlyPrice,
-      facilities: Array.isArray(facilities)
-        ? facilities
-        : facilities.split(","), // Support both array and comma-separated string
+      facilities: Array.isArray(facilities) ? facilities : facilities.split(","),
       image: imageUrl,
       description,
       website,
     });
 
+    // Save the new gym to the database
     await newGym.save();
 
+    // Return a successful response
     res.status(201).json({ success: true, gym: newGym });
   } catch (err) {
+    console.error("Error adding gym:", err); // Log the error for debugging
     res.status(500).json({ success: false, error: err.message });
   }
 };
@@ -63,24 +66,28 @@ export const getAllGyms = async (req, res) => {
     const gyms = await Gym.find();
     res.status(200).json(gyms);
   } catch (err) {
+    console.error("Error fetching gyms:", err); // Log the error for debugging
     res.status(500).json({ success: false, error: err.message });
   }
 };
 
-// Get single gym
+// Get a single gym
 export const getSingleGym = async (req, res) => {
   try {
     const gym = await Gym.findById(req.params.id);
     if (!gym) {
       return res.status(404).json({ success: false, message: "Gym not found" });
     }
-    res.status(200).json(gym);
+    // ✅ Wrap in object
+    res.status(200).json({ success: true, gym });
   } catch (err) {
+    console.error("Error fetching gym:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 };
 
-// Edit gym
+
+// Edit an existing gym
 export const editGym = async (req, res) => {
   try {
     const {
@@ -101,6 +108,7 @@ export const editGym = async (req, res) => {
 
     const facilities = req.body.facilities || [];
 
+    // Prepare updated data for the gym
     let updatedData = {
       gymName,
       ownerName,
@@ -113,44 +121,43 @@ export const editGym = async (req, res) => {
       openTime,
       closeTime,
       monthlyPrice,
-      facilities: Array.isArray(facilities)
-        ? facilities
-        : facilities.split(","),
+      facilities: Array.isArray(facilities) ? facilities : facilities.split(","),
       description,
       website,
     };
 
+    // Handle the image upload if a new image is provided
     if (req.file) {
       const uploadRes = await uploadToCloudinary(req.file.path);
       updatedData.image = uploadRes.secure_url;
     }
 
-    const updated = await Gym.findByIdAndUpdate(req.params.id, updatedData, {
-      new: true,
-    });
+    // Update gym in the database
+    const updatedGym = await Gym.findByIdAndUpdate(req.params.id, updatedData, { new: true });
 
-    if (!updated) {
+    if (!updatedGym) {
       return res.status(404).json({ success: false, message: "Gym not found" });
     }
 
-    res.status(200).json(updated);
+    // Return the updated gym information
+    res.status(200).json(updatedGym);
   } catch (err) {
+    console.error("Error updating gym:", err); // Log the error for debugging
     res.status(500).json({ success: false, error: err.message });
   }
 };
 
-// Delete gym
+// Delete a gym
 export const deleteGym = async (req, res) => {
   try {
     const deletedGym = await Gym.findByIdAndDelete(req.params.id);
     if (!deletedGym) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Gym not found" });
+      return res.status(404).json({ success: false, message: "Gym not found" });
     }
 
     res.status(200).json({ success: true, message: "Gym deleted successfully" });
   } catch (err) {
+    console.error("Error deleting gym:", err); // Log the error for debugging
     res.status(500).json({ success: false, error: err.message });
   }
 };

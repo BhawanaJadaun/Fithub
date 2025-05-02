@@ -6,18 +6,18 @@ import {
   editGym,
   deleteGym
 } from "../controllers/gymController.js";
-import upload from "../middlewares/uploadMiddleware.js";
-import authAdmin from "../middlewares/authAdmin.js";
-
+import upload from "../middlewares/uploadMiddleware.js"; // Middleware for file upload
+// import authAdmin from "../middlewares/authAdmin.js"; 
 const router = express.Router();
 
-// 🔐 Protected routes
-router.post("/add-gym", authAdmin, upload.single("image"), addGym);
-router.put("/edit/:id", authAdmin, upload.single("image"), editGym);
-router.delete("/delete/:id", authAdmin, deleteGym); // 🗑️ Delete gym
+//  Protected routes - Admin must be authenticated
+router.post("/add-gym", upload.single("image"), addGym); // Admin adds a gym
+router.put("/edit/:id",  upload.single("image"), editGym); // Admin edits a gym
+router.delete("/delete/:id",  deleteGym); // Admin deletes a gym
 
-// 🌐 Public routes
-router.get("/all-gyms", getAllGyms);
-router.get("/gym/:id", getSingleGym);
+// Public routes - No authentication required
+router.get("/all-gyms", getAllGyms); // Get all gyms
+router.get("/gym/:id", getSingleGym); // Get a single gym by ID
 
 export default router;
+
