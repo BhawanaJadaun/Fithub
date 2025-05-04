@@ -7,6 +7,7 @@ import gymRoutes from "./routes/gymRoutes.js";
 import AppError from "./utils/appError.js";
 import cookieParser from 'cookie-parser';
 import globalErrorHandler from "./controllers/ErrorController.js"
+import enquiryRoutes from "./routes/enquiryRoutes.js";
 const app = express(); // ✅ Correctly initializing express
 
 // Middleware
@@ -28,6 +29,8 @@ app.get("/", (req, res) => {
   app.use('/api/v1/admin',adminRoutes);
   //Gym api routes
   app.use('/api/v1/gyms', gymRoutes); 
+  // Enquiry api routes
+  app.use('/api/v1/enquiry', enquiryRoutes);
 // Users api url
 app.all('*',(req,res,next)=>{
   next(new AppError(`Cannot find ${req.originalUrl} on this server!`, 404));
