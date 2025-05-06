@@ -3,16 +3,11 @@ import logo from "../assets/Fitnesslogo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { setAuthUser } from "../redux/authSlice";
 import { toast } from "react-toastify";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../server.js";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { RxCross2 } from "react-icons/rx";
-import { IoIosMenu } from "react-icons/io";
-import { Button } from "@/components/ui/button";
-
 import {
-  FiHome,
   FiUsers,
   FiPlusCircle,
   FiMessageSquare,
@@ -22,39 +17,29 @@ import {
   FiX,
 } from "react-icons/fi";
 
-import Login from "../Auth/Login.jsx";
-import Register from "../Auth/Register.jsx";
-
 const Sidebar = () => {
-  const [showLoginModal, setShowLoginModal] = useState(false);
-  const [showSignupModal, setShowSignupModal] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [showSettingsOptions, setShowSettingsOptions] = useState(false);
 
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
+  const navigate = useNavigate();
+
   const navItems = [
-    { name: "Dashboard", path: "/dashboard", icon: <FiHome /> },
+    { name: "Analytics", path: "/", icon: <FiBarChart2 /> },
     { name: "All Gym", path: "/all-gyms", icon: <FiUsers /> },
     { name: "Add Gym", path: "/add-gym", icon: <FiPlusCircle /> },
     { name: "Enquiry", path: "/enquiry-page", icon: <FiMessageSquare /> },
-    { name: "Analytics", path: "/analytics", icon: <FiBarChart2 /> },
   ];
 
   useEffect(() => {
     document.body.style.overflow = isSidebarOpen ? "hidden" : "auto";
   }, [isSidebarOpen]);
 
-  const state = useSelector((state) => state);
-  console.log("Full Redux State:", state);
-
-  const user = useSelector((state) => state.auth.user);
-  console.log("Redux State:", useSelector((state) => state.auth));
-
-  const dispatch = useDispatch();
-
   const logoutHandler = async () => {
     try {
       await axios.post(`${API_URL}/users/logout`);
-      dispatch(setAuthUser(null)); // Log out by clearing user data
+      dispatch(setAuthUser(null));
       toast.success("Logged out successfully");
     } catch (error) {
       toast.error("Logout failed. Try again.");
@@ -63,7 +48,7 @@ const Sidebar = () => {
 
   return (
     <>
-      {/* Mobile Togglebar */}
+      {/* Mobile Topbar */}
       <div className="lg:hidden bg-first text-white p-4 flex justify-between items-center shadow-md fixed top-0 left-0 right-0 z-50">
         <div className="flex items-center gap-2">
           <img
@@ -73,7 +58,10 @@ const Sidebar = () => {
           />
           <span className="text-lg font-semibold">Admin Panel</span>
         </div>
-        <button onClick={() => setIsSidebarOpen(!isSidebarOpen)} className="text-2xl">
+        <button
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          className="text-2xl"
+        >
           {isSidebarOpen ? <FiX /> : <FiMenu />}
         </button>
       </div>
@@ -126,12 +114,10 @@ const Sidebar = () => {
             Settings
           </button>
 
-          {/* Dropdown Menu */}
+          {/* Dropdown */}
           {showSettingsOptions && (
             <div className="absolute bottom-full left-4 right-4 mb-2">
-              {/* Arrow */}
               <div className="absolute left-1/2 -bottom-2 transform -translate-x-1/2 w-4 h-4 bg-first rotate-45 border-l border-t border-second z-10" />
-
               <div className="bg-first border border-second rounded-md shadow-lg z-20 relative p-2">
                 <div className="flex justify-end">
                   <button
@@ -143,35 +129,34 @@ const Sidebar = () => {
                 </div>
 
                 <ul className="mt-2">
-                  {!user && (
-                    <Link to="/login">
-                      <button
-                        className="w-full text-left px-4 py-2 hover:bg-third transition"
-                        onClick={() => {
-                          setShowLoginModal(true);
-                          setShowSettingsOptions(false);
-                          setIsSidebarOpen(false);
-                        }}
-                      >
-                        Sign In
-                      </button>
-                    </Link>
-                  )}
-                  {!user && (
-                    <Link to="/register">
-                      <button
-                        className="w-full text-left px-4 py-2 hover:bg-third transition"
-                        onClick={() => {
-                          setShowSignupModal(true);
-                          setShowSettingsOptions(false);
-                          setIsSidebarOpen(false);
-                        }}
-                      >
-                        Sign Up
-                      </button>
-                    </Link>
-                  )}
-                  {user && (
+                  {!user ? (
+                    <>
+                      <li>
+                        <button
+                          className="w-full text-left px-4 py-2 hover:bg-third transition"
+                          onClick={() => {
+                            navigate("/login");
+                            setShowSettingsOptions(false);
+                            setIsSidebarOpen(false);
+                          }}
+                        >
+                          Sign In
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          className="w-full text-left px-4 py-2 hover:bg-third transition"
+                          onClick={() => {
+                            navigate("/register");
+                            setShowSettingsOptions(false);
+                            setIsSidebarOpen(false);
+                          }}
+                        >
+                          Sign Up
+                        </button>
+                      </li>
+                    </>
+                  ) : (
                     <>
                       <div className="flex items-center space-x-2">
                         <Avatar
@@ -183,13 +168,9 @@ const Sidebar = () => {
                           </AvatarFallback>
                         </Avatar>
                       </div>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="bg-third text-white glow-border p-2"
-                      >
+                      <span className="bg-third text-white glow-border px-4 py-2 block rounded-md mt-2 text-center text-sm">
                         {user.isVerified ? "Verified" : "Not Verified"}
-                      </Button>
+                      </span>
                     </>
                   )}
                 </ul>
@@ -198,17 +179,6 @@ const Sidebar = () => {
           )}
         </div>
       </aside>
-
-      {/* Modals (conditionally rendered) */}
-      {showLoginModal && (
-        <Login show={showLoginModal} onClose={() => setShowLoginModal(false)} />
-      )}
-      {showSignupModal && (
-        <Register
-          show={showSignupModal}
-          onClose={() => setShowSignupModal(false)}
-        />
-      )}
     </>
   );
 };

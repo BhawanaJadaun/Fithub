@@ -1,16 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Correct package
 import { Eye, EyeOff, LoaderCircle } from "lucide-react";
-import { useNavigate } from "react-router";
 import { useDispatch } from "react-redux";
 import { setAuthUser } from "../redux/actions/authActions.js";
 import { API_URL } from "../server.js";
 
-export const Login = ({ show, onClose }) => {
-  if (!show) return null;
-
+export const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -30,25 +27,24 @@ export const Login = ({ show, onClose }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+  
     try {
       const response = await axios.post(`${API_URL}/admin/login`, formData, {
         withCredentials: true,
       });
-
+  
       console.log("Login response:", response.data);
       console.log("Response data:", response.data.data);
-
+  
       const admin = response.data?.data?.admin;
-
+  
       if (!admin) {
         throw new Error("Invalid admin data from server");
       }
-
+  
       toast.success(response.data.message || "Login successful!");
-      dispatch(setAuthUser(admin));  // Update auth state with admin data
-      onClose(); // Close the login modal after successful login
-      navigate("/");  // Redirect to home page
+      dispatch(setAuthUser(admin));  
+      navigate("/");
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);
       toast.error(error.response?.data?.message || "Login failed!");
@@ -56,12 +52,11 @@ export const Login = ({ show, onClose }) => {
       setIsSubmitting(false);
     }
   };
+  
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="flex items-center justify-center w-screen h-screen">
       <div className="w-full max-w-sm bg-first p-6 rounded-xl shadow-lg border border-gray-700 glow-border relative">
-        {/* Close button removed */}
-
         <h2 className="mb-6 text-2xl font-bold text-center text-white">Login</h2>
 
         <form onSubmit={submitHandler} className="space-y-5">

@@ -5,7 +5,6 @@ import { createEnquiry, getAllEnquiries } from '../controllers/enquiryController
 
 const router = express.Router();
 const upload = multer({ storage: multer.memoryStorage() });
-
 // Existing routes
 router.post('/enquiry', createEnquiry); 
 router.get('/enquiries', getAllEnquiries);

@@ -34,7 +34,7 @@ const GymDetails = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-10 ml-0 lg:ml-64 transition-all duration-300">
+    <div className="max-w-full md:max-w-3xl lg:max-w-6xl mx-auto px-4 py-10  lg:ml-64 md:ml-0 sm:ml-0 transition-all duration-300">
       <div className="bg-third glow-border shadow-lg rounded-lg overflow-hidden">
         <img
           src={gym.image}
@@ -42,7 +42,7 @@ const GymDetails = () => {
           className="w-full h-64 md:h-96 object-cover"
         />
   
-        <div className="p-6 md:flex md:gap-8">
+        <div className="p-4 sm:p-6 md:flex md:gap-6">
           <div className="md:w-1/2 space-y-2">
             <h1 className="text-3xl font-bold mb-4 text-six">{gym.gymName}</h1>
             <p className="text-default"><strong className="text-fourth">Owner:</strong> {gym.ownerName}</p>

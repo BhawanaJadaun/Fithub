@@ -10,7 +10,17 @@ const AllGyms = () => {
   useEffect(() => {
     const fetchGyms = async () => {
       try {
+        const token = localStorage.getItem('adminToken'); // Get token from localStorage
+        if (!token || token === 'null' || token === 'undefined') {
+          toast.error('Admin not authenticated. Please login again.');
+          navigate("/register");
+          return;
+        }
+      
         const res = await axios.get(`${API_URL}/gyms/all-gyms`, {
+          headers: {
+            Authorization: `Bearer ${token}`, // <-- Include token in header
+          },
           withCredentials: true,
         });
         setGyms(res.data);
@@ -20,7 +30,7 @@ const AllGyms = () => {
         setLoading(false);
       }
     };
-
+    
     fetchGyms();
   }, []);
 

@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { API_URL } from "../server.js";
 import { setAuthUser } from "../redux/authSlice.js"; // Use the correct action
 import { Loader } from "lucide-react";
+import { Button } from "@/components/ui/button"; 
 
 const OtpVerification = () => {
   const [otp, setOtp] = useState(["", "", "", ""]);
@@ -88,7 +89,7 @@ const OtpVerification = () => {
   };
 
   return (
-    <div className="h-screen flex flex-col items-center justify-center bg-first">
+    <div className="h-screen flex flex-col items-center justify-center">
       <h1 className="text-xl mb-4 font-semibold text-six">
         Enter Your Email Verification Code here
       </h1>
@@ -109,17 +110,17 @@ const OtpVerification = () => {
       <div className="flex items-center space-x-4 mt-6">
         {!loading ? (
           <>
-            <button
+            <Button
               onClick={handleSubmit}
               variant="default"
               disabled={loading}
               className="bg-gradient-to-r from-second via-six to-first rounded-md hover:opacity-90 transition text-white "
             >
               Submit
-            </button>
-            <button onClick={handleResendOtp} className="bg-six">
+            </Button>
+            <Button onClick={handleResendOtp} className="bg-six hover:bg-default">
               Resend OTP
-            </button>
+            </Button>
           </>
         ) : (
           <Loader className="animate-spin w-8 h-8 text-six" />

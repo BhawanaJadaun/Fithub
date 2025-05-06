@@ -12,7 +12,27 @@
   --eight:#cffafe;
   --default:#ecfeff;
  }
+ @layer base {
+  * {
+    scrollbar-width:thin;
+    scrollbar-color: #67e8f9 #083344;
+  }
 
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #67e8f9;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #67e8f9;
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+}
 *{
   margin: 0;
   top: 0;

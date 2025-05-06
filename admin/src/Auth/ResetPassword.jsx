@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { setAuthUser } from "../redux/actions/authActions.js";
 import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const ResetPassword = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -50,7 +51,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-first">
+    <div className="flex items-center justify-center min-h-screen">
       <div className="w-[400px] bg-second p-6 shadow-lg rounded-lg glow-border">
         <h2 className="text-2xl font-semibold text-center mb-6 text-six">Reset Password</h2>
 
@@ -72,13 +73,13 @@ const ResetPassword = () => {
             placeholder="Enter new password"
             className="w-full px-4 py-2 border-none rounded-lg mb-3 outline-none focus:ring-2 bg-third focus:ring-first pr-10 text-default"
           />
-          <button
+          <Button
             type="button"
             className="absolute right-3 top-3 text-gray-600"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? <EyeOff size={20} className = "text-six"/> : <Eye size={20} className = "text-six"/>}
-          </button>
+          </Button>
         </div>
 
         {/* Confirm Password Input with Show/Hide Button */}
@@ -90,31 +91,31 @@ const ResetPassword = () => {
             placeholder="Confirm password"
             className="w-full bg-third px-4 py-2 border-none rounded-lg mb-4 outline-none focus:ring-2 focus:ring-first pr-10 text-default"
           />
-          <button
+          <Button
             type="button"
             className="absolute right-3 top-3 text-gray-600"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
             {showConfirmPassword ? <EyeOff size={20} className = "text-six"/> : <Eye size={20} className = "text-six"/>}
-          </button>
+          </Button>
         </div>
 
         {/* Submit Button */}
         <div className="flex items-center justify-between mt-4">
-          <button
+          <Button
             onClick={handleSubmit}
             disabled={loading}
             className="w-full text-first bg-gradient-to-r from-second via-fifth to-first"
           >
             {loading ? <Loader className="animate-spin" /> : "Change Password"}
-          </button>
+          </Button>
         </div>
 
         {/* Go Back Button */}
         <div className="mt-4 text-center">
-          <button variant="ghost" className="text-six">
+          <Button variant="ghost" className="text-six">
             <Link to="/forgot-password">Go Back</Link>
-          </button>
+          </Button>
         </div>
       </div>
     </div>

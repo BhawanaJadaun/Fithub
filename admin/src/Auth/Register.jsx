@@ -43,11 +43,33 @@ export const Register = ({ show, onClose = () => {} }) => {
       });
 
       const user = response.data.user;
+      if (user && user.email) {
+        localStorage.setItem("adminEmail", user.email); // ✅ Save admin email
+        console.log("Admin email saved:", user.email);
+      } else {
+        console.warn("No email found in user object.");
+      }
+
+      const token = response.data.token;
+      if (token) {
+        localStorage.setItem("adminToken", token); // ✅ Save admin token
+      } else {
+        console.warn("No token received on signup!");
+      }
+
+      const adminId = response.data.adminId; // ✅ Extract adminId from response
+      if (adminId) {
+        localStorage.setItem("adminId", adminId); // ✅ Save adminId
+        console.log("Admin ID saved:", adminId);
+      } else {
+        console.warn("No adminId found in response.");
+      }
+
       toast.success(response.data.message || "Registration successful!");
       dispatch(setAuthUser(user));
       onClose();
       navigate("/otp-verification");
-      
+
     } catch (error) {
       console.error("Signup error:", error);
       toast.error(error.response?.data?.message || "Signup failed!");
@@ -58,7 +80,7 @@ export const Register = ({ show, onClose = () => {} }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      className="flex items-center justify-center w-screen mt-10"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}

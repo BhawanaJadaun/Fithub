@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { Loader } from "lucide-react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import axios from "axios"; // Import axios
+import axios from "axios";
+import { Button } from "@/components/ui/button";
 import {API_URL} from "../server.js";
 
 const ForgotPassword = () => {
@@ -29,7 +30,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center flex-col bg-first">
+    <div className="w-full h-screen flex items-center justify-center flex-col">
       <h1 className="text-xl text-six mb-4 font-medium">
         Enter your Email to get a code for resetting your password
       </h1>
@@ -40,9 +41,9 @@ const ForgotPassword = () => {
         className="block w-[40%] mb-4 mx-auto rounded-lg bg-second glow-border px-4 py-3 text-default "
         placeholder="Enter your email"
       />
-      <button onClick={handleSubmit} disabled={loading} className = " bg-gradient-to-r from-second via-fifth to-first">
+      <Button onClick={handleSubmit} disabled={loading} className = " bg-gradient-to-r from-second via-fifth to-first">
         {loading ? <Loader className="animate-spin" /> : "Submit"}
-      </button>
+      </Button>
     </div>
   );
 };

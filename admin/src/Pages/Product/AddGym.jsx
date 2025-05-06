@@ -77,7 +77,7 @@ const AddGym = () => {
         gymData.append("facilities", facility);
       });
 
-      const token = localStorage.getItem('token');
+      const token = localStorage.getItem("adminToken");
       if (!token) {
         toast.error('No token found. Please login again.');
         setLoading(false);
