@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/server.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/server.js"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "Development",
+    "JWT_SECRET": "FitHub123",
+    "MONGO_URL": "mongodb+srv://bhawana:bhawana7535@cluster0.zdzwk.mongodb.net/FitHubDB?retryWrites=true&w=majority&appName=Cluster0"
+  }
+}
