@@ -6,7 +6,7 @@ import adminRoutes from "./routes/adminRoutes.js";
 import gymRoutes from "./routes/gymRoutes.js";
 import AppError from "./utils/AppError.js";
 import cookieParser from 'cookie-parser';
-import globalErrorHandler from "./controllers/ErrorController.js"
+import globalErrorHandler from "./controllers/errorController.js"
 import enquiryRoutes from "./routes/enquiryRoutes.js";
 const app = express(); // ✅ Correctly initializing express
 
