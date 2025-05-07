@@ -4,7 +4,7 @@ import cors from 'cors';
 import userRouter from "./routes/userRouter.js"
 import adminRoutes from "./routes/adminRoutes.js";
 import gymRoutes from "./routes/gymRoutes.js";
-import AppError from "./utils/appError.js";
+import AppError from "./utils/AppError.js";
 import cookieParser from 'cookie-parser';
 import globalErrorHandler from "./controllers/ErrorController.js"
 import enquiryRoutes from "./routes/enquiryRoutes.js";
