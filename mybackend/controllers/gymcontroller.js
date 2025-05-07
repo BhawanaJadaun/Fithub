@@ -1,4 +1,4 @@
-import Gym from "../models/GymModel.js";
+import Gym from "../models/gymModel.js";
 import { uploadToCloudinary } from "../config/cloudinary.js";
 
 // Add a new gym
