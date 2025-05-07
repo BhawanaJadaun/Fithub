@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 // Custom CORS middleware for multiple origins
 
 const allowedOrigins = [
-  'http://localhost:5173','http://localhost:5174'
+  'https://fithub-frontend-blush.vercel.app','https://fithub-ruddy.vercel.app'
 ];
 
 app.use(
