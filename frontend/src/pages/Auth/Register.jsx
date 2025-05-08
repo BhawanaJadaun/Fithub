@@ -35,23 +35,32 @@ export const Register = () => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+  
     if (formData.password !== formData.passwordConfirm) {
       toast.error("Passwords do not match.");
       setIsSubmitting(false);
       return;
     }
-
+  
     try {
       const response = await axios.post(`${API_URL}/users/signup`, formData, {
-        withCredentials: true,
+        withCredentials: true, // You can keep this if you're using cookies
       });
-
+  
       const user = response.data.user;
+      const token = response.data.token; // Assuming your backend returns a token
+  
       console.log("User received after signup:", user);
       toast.success(response.data.message || "Registration successful!");
+  
+      // ✅ Store token in localStorage or sessionStorage
+      localStorage.setItem("token", token); // You can replace localStorage with sessionStorage if needed
+  
+      // Dispatching the user data to redux
       dispatch(setAuthUser(user));
       console.log("Dispatched setAuthUser:", user);
+  
+      // Navigate to OTP verification page
       navigate("/otp-verification");
     } catch (error) {
       console.error("Signup error:", error);
@@ -60,6 +69,7 @@ export const Register = () => {
       setIsSubmitting(false);
     }
   };
+  
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-first to-third p-4">
