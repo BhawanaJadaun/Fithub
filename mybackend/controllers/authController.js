@@ -115,6 +115,7 @@ export const verifyAccount = catchAsync(async(req, res, next) => {
   createSendToken(user, 200, res, "Email has been verified.");
 });
 
+
 // ======================resend otp=========================
 export const resendOTP = catchAsync(async (req, res, next) => {
   const email = req.user?.email || req.body.email; // Fallback to body.email
