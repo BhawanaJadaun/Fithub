@@ -108,9 +108,6 @@ const OtpVerification = () => {
     }
   };
   
-  
-  
-
   return (
     <div className="h-screen flex flex-col items-center justify-center bg-first">
       <h1 className="text-xl mb-4 font-semibold text-six">Enter Your Email Verification Code here</h1>
