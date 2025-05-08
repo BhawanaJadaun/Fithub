@@ -41,10 +41,18 @@ const OtpVerification = () => {
       const otpValue = otp.join("").trim();
       console.log("OTP Sent to Server:", otpValue);
   
+      // Get the token from localStorage
+      const token = localStorage.getItem("token");
+  
       const response = await axios.post(
         `${API_URL}/users/verify`,
         { otp: otpValue },
-        { withCredentials: true }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // Include token in header
+          },
+          withCredentials: true, // This is still used if you're also using cookies for authentication
+        }
       );
   
       console.log("Server Response:", response.data);
@@ -70,18 +78,36 @@ const OtpVerification = () => {
     }
   };
   
-
   const handleResendOtp = async () => {
     setLoading(true);
     try {
-      await axios.post(`${API_URL}/users/resend-otp`, null, { withCredentials: true });
+      // Get the token from localStorage
+      const token = localStorage.getItem("token");
+  
+      // Send the resend OTP request with the token in headers
+      const response = await axios.post(
+        `${API_URL}/users/resend-otp`,
+        null, 
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true, 
+        }
+      );
+      
       toast.success("OTP Resent Successfully!");
     } catch (error) {
-      toast.error(error?.response?.data?.message || "Failed to Resend OTP!");
+      console.error("Error resending OTP:", error);
+      
+      // Handle specific error message
+      const errorMessage = error?.response?.data?.message || "Failed to Resend OTP!";
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
   };
+  
   
   
 
