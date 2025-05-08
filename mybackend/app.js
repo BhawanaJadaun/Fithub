@@ -1,7 +1,7 @@
 import express from "express";
 import cors from 'cors';
 // import authRoutes from "./routes/auth.route.js";
-import userRouter from "./routes/userRouter.js"
+import userRouter from "./routes/userRoutes.js"
 import adminRoutes from "./routes/adminRoutes.js";
 import gymRoutes from "./routes/gymRoutes.js";
 import AppError from "./utils/AppError.js";
