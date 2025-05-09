@@ -4,13 +4,14 @@ import AppError from "../utils/AppError.js";
 import Admin from "../models/adminModel.js";
 
 const isAuthenticatedAdmin = catchAsync(async (req, res, next) => {
-  const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
+  const authHeader = req.headers.authorization;
+  const token = req.cookies.token || 
+  (authHeader && authHeader.startsWith("Bearer ") && authHeader.split(" ")[1]);
 
   // Check if token is provided
   if (!token) {
     return next(new AppError("You are not logged in, please log in to access", 401));
   }
-
   try {
     // Verify the token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -22,7 +23,6 @@ const isAuthenticatedAdmin = catchAsync(async (req, res, next) => {
       return next(new AppError("Admin associated with this token no longer exists", 401));
     }
 
-    // Attach the admin to the request object
     req.admin = currentAdmin;
 
     // Proceed to the next middleware or route handler
