@@ -30,46 +30,43 @@ export const Register = ({ show, onClose = () => {} }) => {
   const submitHandler = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
+  
     if (formData.password !== formData.passwordConfirm) {
       toast.error("Passwords do not match.");
       setIsSubmitting(false);
       return;
     }
-
+  
     try {
-      const response = await axios.post(`${API_URL}/admin/signup`, formData, {
-        withCredentials: true,
-      });
-
-      const user = response.data.user;
-      if (user && user.email) {
-        localStorage.setItem("adminEmail", user.email); // ✅ Save admin email
+      const response = await axios.post(`${API_URL}/admin/signup`, formData); // ❌ Removed withCredentials
+  
+      const { user, token, adminId, message } = response.data;
+  
+      if (user?.email) {
+        localStorage.setItem("adminEmail", user.email);
         console.log("Admin email saved:", user.email);
       } else {
         console.warn("No email found in user object.");
       }
-
-      const token = response.data.token;
+  
       if (token) {
-        localStorage.setItem("adminToken", token); // ✅ Save admin token
+        localStorage.setItem("adminToken", token); // ✅ Save Bearer token for later use
       } else {
         console.warn("No token received on signup!");
       }
-
-      const adminId = response.data.adminId; // ✅ Extract adminId from response
+  
       if (adminId) {
-        localStorage.setItem("adminId", adminId); // ✅ Save adminId
+        localStorage.setItem("adminId", adminId);
         console.log("Admin ID saved:", adminId);
       } else {
         console.warn("No adminId found in response.");
       }
-
-      toast.success(response.data.message || "Registration successful!");
+  
+      toast.success(message || "Registration successful!");
       dispatch(setAuthUser(user));
       onClose();
       navigate("/otp-verification");
-
+  
     } catch (error) {
       console.error("Signup error:", error);
       toast.error(error.response?.data?.message || "Signup failed!");
@@ -77,6 +74,7 @@ export const Register = ({ show, onClose = () => {} }) => {
       setIsSubmitting(false);
     }
   };
+  
 
   return (
     <div
