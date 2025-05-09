@@ -149,7 +149,7 @@ const Navbar = () => {
               {user ? (
                 <>
                   <Avatar onClick={logoutHandler} className="cursor-pointer">
-                    <AvatarFallback className="font-bold uppercase text-white bg-red-600 rounded-full">
+                    <AvatarFallback className="font-bold uppercase text-white bg-third glow-border rounded-full">
                       {user.username.charAt(0).toUpperCase() || "U"}
                     </AvatarFallback>
                   </Avatar>
