@@ -43,20 +43,19 @@ const OtpVerification = () => {
     setLoading(true);
     try {
       const otpValue = otp.join("").trim();
-      console.log("OTP Sent to Server:", otpValue);
+      const token = localStorage.getItem("adminToken"); // ✅ Get Bearer token
 
       const response = await axios.post(
         `${API_URL}/admin/verify`,
         { otp: otpValue },
-        { withCredentials: true }
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // ✅ Send Bearer token
+          },
+        }
       );
 
-      console.log("Server Response:", response.data);
-
-      // ✅ Ensure correct extraction of user data
-      const verifiedUser = response.data?.data?.admin; // Accessing admin data instead of user
-      console.log("Extracted Admin Data:", verifiedUser);
-
+      const verifiedUser = response.data?.data?.admin;
       if (verifiedUser) {
         dispatch(setAuthUser(verifiedUser));
         toast.success("Verification Successful");
@@ -77,9 +76,18 @@ const OtpVerification = () => {
   const handleResendOtp = async () => {
     setLoading(true);
     try {
-      await axios.post(`${API_URL}/admin/resend-otp`, null, {
-        withCredentials: true,
-      });
+      const token = localStorage.getItem("adminToken"); // ✅ Get Bearer token
+
+      await axios.post(
+        `${API_URL}/admin/resend-otp`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, // ✅ Include Bearer token
+          },
+        }
+      );
+
       toast.success("OTP Resent Successfully!");
     } catch (error) {
       toast.error(error?.response?.data?.message || "Failed to Resend OTP!");
