@@ -78,7 +78,7 @@ export const Register = ({ show, onClose = () => {} }) => {
 
   return (
     <div
-      className="flex items-center justify-center w-screen mt-10"
+      className="flex items-center justify-center w-screen h-screen mt-10"
       onClick={(e) => {
         if (e.target === e.currentTarget) onClose();
       }}
